@@ -1,0 +1,38 @@
+# fly.toml — generated for photobooth-nextjs
+# Region: sin (Singapore). Fly no longer offers Hong Kong; Singapore is the closest
+# region to Indonesia and mainland China (Tokyo, nrt, is the other Asian option).
+app = "photobooth-nextjs"          # change to a globally-unique app name before first deploy
+primary_region = "sin"
+
+[build]
+
+[env]
+  PORT = "3000"
+  HOST = "0.0.0.0"
+  NODE_ENV = "production"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = false     # keep the socket.io server warm — no cold-start dropping rooms
+  auto_start_machines = true
+  min_machines_running = 1
+
+  [[http_service.checks]]
+    grace_period = "10s"
+    interval = "30s"
+    method = "GET"
+    timeout = "5s"
+    path = "/api/health"
+
+# Optional: keep published strips across deploys without S3.
+#   fly volumes create photobooth_data --region sin --size 1
+# then uncomment:
+# [mounts]
+#   source = "photobooth_data"
+#   destination = "/app/data"
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 512

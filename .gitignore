@@ -1,0 +1,10 @@
+node_modules
+.next
+.env
+.env.local
+*.log
+.DS_Store
+# published strips and MediaPipe assets are generated, not source
+data/
+public/mediapipe/
+*.tsbuildinfo

@@ -1,0 +1,11 @@
+node_modules
+.next
+.git
+.github
+*.log
+.env
+.env.local
+.DS_Store
+data
+public/mediapipe
+tests
